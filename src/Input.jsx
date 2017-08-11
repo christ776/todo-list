@@ -1,16 +1,17 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Input extends Component {
   state = {
-    value: ""
+    value: '',
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ value: e.target.value });
   };
 
-  handleKeyPress = e => {
-    if (e.key !== "Enter") return;
+  handleKeyPress = (e) => {
+    if (e.key !== 'Enter') return;
 
     const { onSubmitEditing } = this.props;
     const { value } = this.state;
@@ -18,7 +19,7 @@ export default class Input extends Component {
     if (!value) return; // Don't submit if empty
 
     onSubmitEditing(value);
-    this.setState({ value: "" });
+    this.setState({ value: '' });
   };
 
   render() {
@@ -28,7 +29,7 @@ export default class Input extends Component {
     return (
       <input
         style={styles.input}
-        type={"text"}
+        type={'text'}
         value={value}
         placeholder={placeholder}
         onChange={this.handleChange}
@@ -38,10 +39,15 @@ export default class Input extends Component {
   }
 }
 
+Input.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+  onSubmitEditing: PropTypes.func.isRequired,
+};
+
 const styles = {
   input: {
-    fontSize: "100%",
+    fontSize: '100%',
     padding: 15,
-    borderWidth: 10
-  }
+    borderWidth: 10,
+  },
 };
