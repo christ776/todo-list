@@ -1,28 +1,47 @@
+// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { actionCreators } from './todoListRedux';
+import * as actionCreators from './todoListRedux';
 import List from './List';
 import Input from './Input';
 import Title from './Title';
+import database from './base';
 
 const mapStateToProps = state => ({
   todos: state.todos,
 });
 
+const mapDispatchToProps = dispatch => ({
+  addTodo: text => dispatch(actionCreators.add(text)),
+  fetch: items => dispatch(actionCreators.fetch(items)),
+  remove: index => dispatch(actionCreators.remove(index)),
+});
+
 class App extends Component {
+  state = {
+    todos: [],
+  }
+
+  componentWillMount() {
+    this.fetchTodos();
+  }
 
   onAddTodo = (text) => {
-    const { dispatch } = this.props;
-
-    dispatch(actionCreators.add(text));
+    this.props.addTodo(text);
   }
 
   onRemoveTodo = (index) => {
-    const { dispatch } = this.props;
+    this.props.remove(index);
+  }
 
-    dispatch(actionCreators.remove(index));
+  fetchTodos = () => {
+    const { fetch } = this.props;
+    database.ref('/todos').once('value', (snap) => {
+      const todos = snap.val();
+      fetch(todos);
+    });
   }
 
   render() {
@@ -47,8 +66,10 @@ class App extends Component {
 }
 
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   todos: PropTypes.arrayOf(PropTypes.string).isRequired,
+  addTodo: PropTypes.func.isRequired,
+  fetch: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired,
 };
 
 const styles = {
@@ -58,4 +79,6 @@ const styles = {
   },
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)(App);

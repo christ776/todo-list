@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class List extends Component {
+
+  countryList = items => (
+    items.map(this.renderItem)
+  );
+
   renderItem = (text, i) => {
     const { onClickItem } = this.props;
 
@@ -18,12 +23,13 @@ export default class List extends Component {
     );
   };
 
+
   render() {
     const { list } = this.props;
 
     return (
       <div style={styles.container}>
-        {list.map(this.renderItem)}
+        {this.countryList(list)}
       </div>
     );
   }
@@ -32,6 +38,10 @@ export default class List extends Component {
 List.propTypes = {
   onClickItem: PropTypes.func.isRequired,
   list: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+List.defaultProps = {
+  list: [],
 };
 
 const styles = {

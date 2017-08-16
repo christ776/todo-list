@@ -1,19 +1,35 @@
+import database from './base';
+
 // The types of actions that you can dispatch to modify the state of the store
 export const types = {
   ADD: 'ADD',
   REMOVE: 'REMOVE',
+  FETCH: 'FETCH',
 };
 
-// Helper functions to dispatch actions, optionally with payloads
-export const actionCreators = {
-  add: item => ({ type: types.ADD, payload: item }),
-  remove: index => ({ type: types.REMOVE, payload: index }),
-};
+export function add(item) {
+  return () => {
+    database.ref('/todos').push({
+      item,
+    });
+  };
+}
 
-// Initial state of the store
-const initialState = {
-  todos: ['Click to remove', 'Learn React', 'Write Code', 'Ship App'],
-};
+export function remove(index) {
+  return {
+    type: types.REMOVE,
+    payload: index,
+  };
+}
+
+export function fetch(items) {
+  return {
+    type: types.FETCH,
+    payload: items,
+  };
+}
+
+const initialState = [];
 
 // Function to handle actions and update the state of the store.
 // Notes:
@@ -38,6 +54,15 @@ export const reducer = (state = initialState, action) => {
         ...state,
         todos: todos.filter((todo, i) => i !== payload),
       };
+    }
+
+    case types.FETCH: {
+      if (payload) {
+        return {
+          todos: payload.map(todo => todo.item),
+        };
+      }
+      return state;
     }
 
     default:
