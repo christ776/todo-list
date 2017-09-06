@@ -15,10 +15,9 @@ export function add(item) {
   };
 }
 
-export function remove(index) {
-  return {
-    type: types.REMOVE,
-    payload: index,
+export function remove(itemId) {
+  return () => {
+    database.ref(`/todos/${itemId}`).remove();
   };
 }
 
@@ -29,7 +28,9 @@ export function fetch(items) {
   };
 }
 
-const initialState = [];
+const initialState = {
+  todos: [],
+};
 
 // Function to handle actions and update the state of the store.
 // Notes:
@@ -57,12 +58,10 @@ export const reducer = (state = initialState, action) => {
     }
 
     case types.FETCH: {
-      if (payload) {
-        return {
-          todos: payload.map(todo => todo.item),
-        };
-      }
-      return state;
+      return {
+        ...state,
+        todos: payload,
+      };
     }
 
     default:

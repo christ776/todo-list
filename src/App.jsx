@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -20,11 +19,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class App extends Component {
-  state = {
-    todos: [],
-  }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchTodos();
   }
 
@@ -38,14 +34,25 @@ class App extends Component {
 
   fetchTodos = () => {
     const { fetch } = this.props;
-    database.ref('/todos').once('value', (snap) => {
-      const todos = snap.val();
-      fetch(todos);
+    database.ref('/todos').on('value', (snap) => {
+      const result = [];
+      snap.forEach((childSnap) => {
+        result.push({
+          id: childSnap.key,
+          text: childSnap.val().item,
+        });
+      });
+      fetch(result);
     });
   }
 
   render() {
     const { todos } = this.props;
+    let list = null;
+
+    if (todos && todos.length > 0) {
+      list = (<List list={todos} onClickItem={this.onRemoveTodo} />);
+    }
 
     return (
       <div style={styles.container}>
@@ -56,17 +63,17 @@ class App extends Component {
           placeholder={'Type a todo, then hit enter!'}
           onSubmitEditing={this.onAddTodo}
         />
-        <List
-          list={todos}
-          onClickItem={this.onRemoveTodo}
-        />
+        {list}
       </div>
     );
   }
 }
 
 App.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.string).isRequired,
+  todos: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  })).isRequired,
   addTodo: PropTypes.func.isRequired,
   fetch: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,

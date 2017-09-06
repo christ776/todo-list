@@ -7,8 +7,9 @@ export default class List extends Component {
     items.map(this.renderItem)
   );
 
-  renderItem = (text, i) => {
+  renderItem = (item, i) => {
     const { onClickItem } = this.props;
+    const { text, id } = item;
 
     return (
       <div
@@ -16,7 +17,7 @@ export default class List extends Component {
         tabIndex={i}
         key={i}
         style={styles.item}
-        onClick={() => onClickItem(i)}
+        onClick={() => onClickItem(id)}
       >
         {text}
       </div>
@@ -37,7 +38,10 @@ export default class List extends Component {
 
 List.propTypes = {
   onClickItem: PropTypes.func.isRequired,
-  list: PropTypes.arrayOf(PropTypes.string).isRequired,
+  list: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 List.defaultProps = {
