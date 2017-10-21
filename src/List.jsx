@@ -44,9 +44,6 @@ List.propTypes = {
   })).isRequired,
 };
 
-List.defaultProps = {
-  list: [],
-};
 
 const styles = {
   container: {

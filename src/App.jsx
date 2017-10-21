@@ -48,11 +48,6 @@ class App extends Component {
 
   render() {
     const { todos } = this.props;
-    let list = null;
-
-    if (todos && todos.length > 0) {
-      list = (<List list={todos} onClickItem={this.onRemoveTodo} />);
-    }
 
     return (
       <div style={styles.container}>
@@ -63,7 +58,7 @@ class App extends Component {
           placeholder={'Type a todo, then hit enter!'}
           onSubmitEditing={this.onAddTodo}
         />
-        {list}
+        <List list={todos} onClickItem={this.onRemoveTodo} />
       </div>
     );
   }
