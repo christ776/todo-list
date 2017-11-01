@@ -14,7 +14,7 @@
     ],
     "extends":"airbnb",
     "rules":{
-      "arrow-body-style": [2, "as-needed"],
+      "arrow-body-style": ["error", "as-needed"],
        // code arrangement matter
        "no-use-before-define": [ 2, { "variables": false } ]
     }

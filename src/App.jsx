@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actionCreators from './todoListRedux';
-import List from './List';
+import List from './components/List';
 import Input from './Input';
 import Title from './Title';
-import database from './base';
+import fetchTodos from './firebase/firebase';
 
 const mapStateToProps = state => ({
   todos: state.todos,
@@ -21,7 +21,14 @@ const mapDispatchToProps = dispatch => ({
 class App extends Component {
 
   componentDidMount() {
-    this.fetchTodos();
+    fetchTodos()
+    .then((tasks) => {
+      const { fetch } = this.props;
+      fetch(tasks);
+    })
+    .catch(() => {
+      process.stdout.write('Error fetching tasks');
+    });
   }
 
   onAddTodo = (text) => {
@@ -30,20 +37,6 @@ class App extends Component {
 
   onRemoveTodo = (index) => {
     this.props.remove(index);
-  }
-
-  fetchTodos = () => {
-    const { fetch } = this.props;
-    database.ref('/todos').on('value', (snap) => {
-      const result = [];
-      snap.forEach((childSnap) => {
-        result.push({
-          id: childSnap.key,
-          text: childSnap.val().item,
-        });
-      });
-      fetch(result);
-    });
   }
 
   render() {
@@ -58,7 +51,7 @@ class App extends Component {
           placeholder={'Type a todo, then hit enter!'}
           onSubmitEditing={this.onAddTodo}
         />
-        <List list={todos} onClickItem={this.onRemoveTodo} />
+        <List tasks={todos} />
       </div>
     );
   }

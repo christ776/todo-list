@@ -1,4 +1,4 @@
-import database from './base';
+import firebaseDb from './firebase/base';
 
 // The types of actions that you can dispatch to modify the state of the store
 export const types = {
@@ -9,7 +9,7 @@ export const types = {
 
 export function add(item) {
   return () => {
-    database.ref('/todos').push({
+    firebaseDb.ref('/todos').push({
       item,
     });
   };
@@ -17,7 +17,7 @@ export function add(item) {
 
 export function remove(itemId) {
   return () => {
-    database.ref(`/todos/${itemId}`).remove();
+    firebaseDb.ref(`/todos/${itemId}`).remove();
   };
 }
 
