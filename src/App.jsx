@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import * as actionCreators from './todoListRedux';
+import * as actionCreators from './reducer';
 import List from './components/List';
-import Input from './Input';
-import Title from './Title';
-import fetchTodos from './firebase/firebase';
+import Input from './components/Input';
+import Title from './components/Title';
+import fetchTodos from './firebase';
 
 const mapStateToProps = state => ({
   todos: state.todos,

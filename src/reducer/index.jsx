@@ -1,4 +1,4 @@
-import firebaseDb from './firebase/base';
+import { firebaseDb } from '../firebase/base';
 
 // The types of actions that you can dispatch to modify the state of the store
 export const types = {

@@ -1,7 +1,7 @@
-import database from './base';
+import { firebaseDb } from './base';
 
 export default function fetchTodos() {
-  const fechtInitialData = database.ref('/todos').once('value').then((snap) => {
+  const fechtInitialData = firebaseDb.ref('/todos').once('value').then((snap) => {
     const result = [];
     snap.forEach((childSnap) => {
       result.push({

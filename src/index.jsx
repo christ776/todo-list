@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 
 // Import the reducer and create a store
-import { reducer } from './todoListRedux';
+import { reducer } from './reducer';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
