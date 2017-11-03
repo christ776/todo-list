@@ -8,7 +8,7 @@ const List = (props) => {
     <ListItem task={task} />,
   );
   return (
-    <div className="task-list">
+    <div className="task-list" style={styles.container}>
       {taskItems}
     </div>
   );
@@ -23,17 +23,16 @@ List.propTypes = {
   })).isRequired,
 };
 
-
-// const styles = {
-//   container: {
-//     display: 'flex',
-//     padding: 10,
-//     flexDirection: 'column',
-//     font: '18px system-ui',
-//   },
-//   item: {
-//     backgroundColor: 'whitesmoke',
-//     marginBottom: 5,
-//     padding: 15,
-//   },
-// };
+const styles = {
+  container: {
+    display: 'flex',
+    padding: 10,
+    flexDirection: 'column',
+    font: '18px system-ui',
+  },
+  item: {
+    backgroundColor: 'whitesmoke',
+    marginBottom: 5,
+    padding: 15,
+  },
+};

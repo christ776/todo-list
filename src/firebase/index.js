@@ -1,7 +1,7 @@
 import { firebaseDb } from './base';
 
 export default function fetchTodos() {
-  const fechtInitialData = firebaseDb.ref('/todos').once('value').then((snap) => {
+  return firebaseDb.ref('/todos').once('value').then((snap) => {
     const result = [];
     snap.forEach((childSnap) => {
       result.push({
@@ -11,5 +11,4 @@ export default function fetchTodos() {
     });
     return result;
   });
-  return fechtInitialData;
 }

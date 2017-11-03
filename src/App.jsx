@@ -20,14 +20,18 @@ const mapDispatchToProps = dispatch => ({
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = { error: null };
+  }
+
   componentDidMount() {
     fetchTodos()
     .then((tasks) => {
       const { fetch } = this.props;
       fetch(tasks);
-    })
-    .catch(() => {
-      process.stdout.write('Error fetching tasks');
+    }).catch((error) => {
+      throw error;
     });
   }
 
@@ -39,7 +43,22 @@ class App extends Component {
     this.props.remove(index);
   }
 
+  componentDidCatch(error, info) {
+    // Display fallback UI
+    this.setState({ error });
+  }
+
   render() {
+    if (this.state.error) {
+      return (
+        <div
+          className="snap"
+        >
+          <p>{'We&apos; re sorry — something&apos;s gone wrong.'}</p>
+          <p>{'Our team has been notified, but click here fill out a report.'}</p>
+        </div>
+      );
+    }
     const { todos } = this.props;
 
     return (

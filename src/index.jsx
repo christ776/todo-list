@@ -8,13 +8,16 @@ import App from './App';
 
 // Import the reducer and create a store
 import { reducer } from './reducer';
+import ErrorBoundary from './components/error';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
 // Pass the store into the Provider
 const AppWithStore = (
   <Provider store={store}>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </Provider>
 );
 
