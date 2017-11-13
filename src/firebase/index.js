@@ -1,6 +1,6 @@
 import { firebaseDb } from './base';
 
-export default function fetchTodos() {
+export function fetchTodos() {
   return firebaseDb.ref('/todos').once('value').then((snap) => {
     const result = [];
     snap.forEach((childSnap) => {
@@ -11,4 +11,24 @@ export default function fetchTodos() {
     });
     return result;
   });
+}
+
+export function edit(item, id) {
+  const updates = {};
+  updates[`${id}`] = { item };
+  return firebaseDb.ref('/todos/').update(updates);
+}
+
+export function add(item) {
+  return () => {
+    firebaseDb.ref('/todos').push({
+      item,
+    });
+  };
+}
+
+export function remove(id) {
+  return () => {
+    firebaseDb.ref(`/todos/${id}`).remove();
+  };
 }

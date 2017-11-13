@@ -3,7 +3,8 @@
         "browser": true,
         "commonjs":true,
         "es6":true,
-        "node": true
+        "node": true,
+        "jest": true
     },
     "parser": "babel-eslint",
     "presets": ["flow"],
@@ -15,7 +16,7 @@
     "extends":"airbnb",
     "rules":{
       "arrow-body-style": ["error", "as-needed"],
-      "no-unused-vars": ["error", { "args": "none" }],
+      "no-unused-vars": [0],
        // code arrangement matter
        "no-use-before-define": [ 2, { "variables": false } ]
     }

@@ -4,10 +4,10 @@ import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 // Import the App container component
-import App from './App';
+import App from './containers';
 
 // Import the reducer and create a store
-import { reducer } from './reducer';
+import reducer from './reducer';
 import ErrorBoundary from './components/error';
 
 const store = createStore(reducer, applyMiddleware(thunk));

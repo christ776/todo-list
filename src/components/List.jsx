@@ -2,10 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from './List-Item';
 
-const List = (props) => {
-  const { tasks } = props;
+const List = ({ tasks, removeTask, updateTask }) => {
   const taskItems = tasks.map(task =>
-    <ListItem task={task} />,
+    (<ListItem
+      key={task.id}
+      task={task}
+      removeTask={removeTask}
+      updateTask={updateTask}
+    />),
   );
   return (
     <div className="task-list" style={styles.container}>
@@ -17,10 +21,10 @@ const List = (props) => {
 export default List;
 
 List.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  })).isRequired,
+
+  removeTask: PropTypes.func.isRequired,
+  updateTask: PropTypes.func.isRequired,
+  tasks: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
 const styles = {

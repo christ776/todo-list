@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
         {
             "type": "chrome",
             "request": "launch",
@@ -14,6 +15,21 @@
             "name": "Attach to Chrome",
             "port": 9222,
             "webRoot": "${workspaceRoot}"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Jest Tests",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "args": [
+                "-i"
+            ],
+            "preLaunchTask": "build",
+            "internalConsoleOptions": "openOnSessionStart",
+            "outFiles": [
+                "${workspaceRoot}/dist/**/*"
+            ],
+            "envFile": "${workspaceRoot}/.env"
         }
     ]
 }

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import * as actionCreators from './reducer';
-import List from './components/List';
-import Input from './components/Input';
-import Title from './components/Title';
-import fetchTodos from './firebase';
+import * as actionCreators from '../actions';
+import List from '../components/List';
+import Input from '../components/Input';
+import Title from '../components/Title';
+import { fetchTodos, edit } from '../firebase';
 
 const mapStateToProps = state => ({
   todos: state.todos,
@@ -16,9 +16,18 @@ const mapDispatchToProps = dispatch => ({
   addTodo: text => dispatch(actionCreators.add(text)),
   fetch: items => dispatch(actionCreators.fetch(items)),
   remove: index => dispatch(actionCreators.remove(index)),
+  update: (title, id) => dispatch(actionCreators.update(title, id)),
 });
 
 class App extends Component {
+
+  static propTypes = {
+    todos: PropTypes.arrayOf(PropTypes.shape).isRequired,
+    addTodo: PropTypes.func.isRequired,
+    fetch: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
+    update: PropTypes.func.isRequired,
+  };
 
   constructor(props) {
     super(props);
@@ -31,6 +40,14 @@ class App extends Component {
       const { fetch } = this.props;
       fetch(tasks);
     }).catch((error) => {
+      throw error;
+    });
+  }
+
+  onEditTask = (title, id) => {
+    edit(title, id).then(() =>
+      this.props.update(title, id),
+    ).catch((error) => {
       throw error;
     });
   }
@@ -70,21 +87,15 @@ class App extends Component {
           placeholder={'Type a todo, then hit enter!'}
           onSubmitEditing={this.onAddTodo}
         />
-        <List tasks={todos} />
+        <List
+          tasks={todos}
+          updateTask={this.onEditTask}
+          removeTask={this.onRemoveTodo}
+        />
       </div>
     );
   }
 }
-
-App.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  })).isRequired,
-  addTodo: PropTypes.func.isRequired,
-  fetch: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired,
-};
 
 const styles = {
   container: {
