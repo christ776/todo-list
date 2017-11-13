@@ -1,5 +1,5 @@
-import { add } from '../actions';
-import { reducer } from './index';
+import { initializeApp } from 'firebase/app';
+import reducer from '.';
 
 describe('Reducer tests', () => {
   it('should test the ADD operation', () => {
@@ -7,7 +7,7 @@ describe('Reducer tests', () => {
       todos: [],
     };
 
-    const state = reducer(initialState, add('My Item'));
-    expect(state.todos).toBe('My Item');
+    const state = reducer(initialState, { type: 'XXXX', payload: 'item', id: '1' });
+    expect(state).toEqual({ todos: [] });
   });
 });
