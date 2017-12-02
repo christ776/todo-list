@@ -16,7 +16,9 @@ const initialState = {
 //   return the initial state of the app in this case.
 const reducer = (state = initialState, action) => {
   const { todos } = state;
-  const { type, payload, id } = action;
+  const { type, payload } = action;
+
+  const id = '11';
 
   switch (type) {
     case ADD: {
