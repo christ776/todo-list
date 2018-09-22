@@ -1,8 +1,7 @@
-// .babelrc
 {
   "presets": [
     "react",
-    "env"
-  ],
-  "plugins": ["transform-object-rest-spread","babel-plugin-transform-class-properties"]
+    "env",
+    "stage-0"
+  ]
 }
