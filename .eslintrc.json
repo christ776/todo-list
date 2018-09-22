@@ -17,7 +17,6 @@
     "rules":{
       "arrow-body-style": ["error", "as-needed"],
       "no-unused-vars": [0],
-       // code arrangement matter
        "no-use-before-define": [ 2, { "variables": false } ]
     }
 }
