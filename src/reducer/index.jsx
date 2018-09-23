@@ -48,7 +48,8 @@ const reducer = (state = initialState, action) => {
 
     case FETCH: {
       return {
-        payload,
+        ...state,
+        todos:payload,
       };
     }
 

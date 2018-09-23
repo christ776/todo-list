@@ -71,7 +71,7 @@ class App extends Component {
         <div
           className="snap"
         >
-          <p>{'We&apos; re sorry — something&apos;s gone wrong.'}</p>
+          <p>{`We're sorry — something's gone wrong.`}</p>
           <p>{'Our team has been notified, but click here fill out a report.'}</p>
         </div>
       );

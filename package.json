@@ -5,8 +5,7 @@
     "dev": "webpack-dev-server --mode development --open --hot",
     "start": "webpack --mode production",
     "build": "webpack --mode production",
-    "test": "node scripts/test.js --env=jsdom",
-    "heroku-postbuild": "webpack -mode production --progress"
+    "test": "node scripts/test.js --env=jsdom"
   },
   "dependencies": {
     "autoprefixer": "7.1.1",
