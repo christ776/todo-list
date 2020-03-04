@@ -6,6 +6,12 @@
     "start": "webpack --mode production",
     "test": "node scripts/test.js --env=jsdom"
   },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>setupTests.js"
+    ],
+    "testPathIgnorePatterns": ["\/scripts"]
+  },
   "dependencies": {
     "autoprefixer": "^9.7.4",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
@@ -53,6 +59,7 @@
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
     "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^4.17.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-postcss": "^2.0.2",
