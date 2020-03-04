@@ -11,6 +11,7 @@ import reducer from './reducer';
 import ErrorBoundary from './components/error';
 
 const store = createStore(reducer, applyMiddleware(thunk));
+import 'todomvc-app-css/index.css'
 
 // Pass the store into the Provider
 const AppWithStore = (
