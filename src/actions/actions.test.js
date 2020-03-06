@@ -6,8 +6,12 @@ describe('actions', () => {
     const text = 'Finish docs';
     const addAction = item => ({
       type: ADD,
-      payload: item,
+      payload: {
+        id: 111,
+        text,
+      },
     });
-    expect(actions.add(text)).toEqual(addAction(text));
+    
+    expect(actions.addItem(text)).toEqual(addAction(text));
   });
 });

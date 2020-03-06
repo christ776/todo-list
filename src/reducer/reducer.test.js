@@ -1,4 +1,4 @@
-import { add } from '../actions';
+import { addItem } from '../actions';
 import reducer from '.';
 
 describe('Reducer tests', () => {
@@ -11,7 +11,7 @@ describe('Reducer tests', () => {
   });
 
   it('should test the ADD operation', () => {
-    const newstate = reducer(initialState, add('A new task'));
-    expect(newstate).toEqual({ todos: ['A new task'] });
+    const newstate = reducer(initialState, addItem('A new task'));
+    expect(newstate).toEqual({ todos: [{ id: 111, text: 'A new task' }] });
   });
 });
