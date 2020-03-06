@@ -13,14 +13,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addTodo: text => dispatch(actionCreators.add(text)),
+  addTodo: text => dispatch(actionCreators.addItem(text)),
   fetch: items => dispatch(actionCreators.fetch(items)),
   remove: index => dispatch(actionCreators.remove(index)),
   update: (title, id) => dispatch(actionCreators.update(title, id)),
 });
 
 class App extends Component {
-
   static propTypes = {
     todos: PropTypes.arrayOf(PropTypes.shape).isRequired,
     addTodo: PropTypes.func.isRequired,
@@ -36,18 +35,17 @@ class App extends Component {
 
   componentDidMount() {
     fetchTodos()
-    .then((tasks) => {
-      const { fetch } = this.props;
-      fetch(tasks);
-    }).catch((error) => {
-      throw error;
-    });
+      .then((tasks) => {
+        const { fetch } = this.props;
+        fetch(tasks);
+      }).catch((error) => {
+        throw error;
+      });
   }
 
   onEditTask = (title, id) => {
     edit(title, id).then(() =>
-      this.props.update(title, id),
-    ).catch((error) => {
+      this.props.update(title, id)).catch((error) => {
       throw error;
     });
   }
@@ -71,8 +69,8 @@ class App extends Component {
         <div
           className="snap"
         >
-          <p>{`We're sorry — something's gone wrong.`}</p>
-          <p>{'Our team has been notified, but click here fill out a report.'}</p>
+          <p>We're sorry — something's gone wrong.</p>
+          <p>Our team has been notified, but click here fill out a report.</p>
         </div>
       );
     }
@@ -81,10 +79,10 @@ class App extends Component {
     return (
       <div style={styles.container}>
         <Title>
-          children={'To-Do List'}
+          children=To-Do List
         </Title>
         <Input
-          placeholder={'Type a todo, then hit enter!'}
+          placeholder="Type a todo, then hit enter!"
           onSubmitEditing={this.onAddTodo}
         />
         <List
@@ -106,4 +104,5 @@ const styles = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)(App);
+  mapDispatchToProps,
+)(App);

@@ -3,6 +3,8 @@ import { ADD,
         REMOVE,
         UPDATE } from './action-types';
 
+import { add } from '../firebase';
+
 export function update(task) {
   return {
     type: UPDATE,
@@ -12,10 +14,11 @@ export function update(task) {
 
 export const remove = task => ({ type: REMOVE, payload: task });
 
-export function add(item) {
+export function addItem(item) {
+  add(item);
   return {
     type: ADD,
-    payload: item,
+    payload: { id: 111, text: item },
   };
 }
 

@@ -7,7 +7,6 @@
         "jest": true
     },
     "parser": "babel-eslint",
-    "presets": ["flow"],
     "plugins": [
         "react",
         "jsx-a11y",

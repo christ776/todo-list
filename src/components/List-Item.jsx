@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class ListItem extends Component {
-
   static propTypes = {
     task: PropTypes.shape({
       id: PropTypes.string.isRequired,
