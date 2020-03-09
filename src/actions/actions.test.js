@@ -11,6 +11,6 @@ describe('actions', () => {
         text,
       },
     });
-    expect(actions.addItem(text)).toEqual(addAction(text));
+    expect(actions.addTask(text)).toEqual(addAction(text));
   });
 });

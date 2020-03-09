@@ -8,4 +8,6 @@ export const REMOVE_FAIL = 'REMOVE_FAIL';
 export const FETCH_START = 'FETCH_START';
 export const FETCH_FAIL = 'FETCH_FAIL';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
-export const UPDATE = 'UPDATE';
+export const UPDATE_TASK_START = 'UPDATE_TASK_START';
+export const UPDATE_TASK_SUCCESS = 'UPDATE_TASK_SUCCESS';
+export const UPDATE_TASK_FAIL = 'UPDATE_TASK_FAIL';

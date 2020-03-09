@@ -8,7 +8,7 @@ import {
   REMOVE_START,
   REMOVE_FAIL,
   REMOVE_SUCCESS,
-  UPDATE,
+  UPDATE_TASK_SUCCESS,
 } from '../actions/action-types';
 
 const initialState = {
@@ -26,8 +26,6 @@ const reducer = (state = initialState, action) => {
   const { todos } = state;
   const { type, payload } = action;
 
-  const id = '11';
-
   switch (type) {
     case ADD_TODO_SUCCESS: {
       return {
@@ -42,7 +40,9 @@ const reducer = (state = initialState, action) => {
       };
     }
 
-    case UPDATE: {
+    case UPDATE_TASK_SUCCESS: {
+      const { task, id } = payload;
+
       return {
         ...state,
         todos: todos.map((todo) => {

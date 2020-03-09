@@ -29,7 +29,7 @@ export default class Input extends Component {
     return (
       <input
         style={styles.input}
-        type={'text'}
+        type="text"
         value={value}
         placeholder={placeholder}
         onChange={this.handleChange}

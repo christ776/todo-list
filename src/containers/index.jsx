@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addTodo: text => dispatch(actionCreators.addItem(text)),
+  addTodo: text => dispatch(actionCreators.addTask(text)),
   fetch: () => dispatch(actionCreators.fetch()),
   remove: index => dispatch(actionCreators.remove(index)),
   update: (title, id) => dispatch(actionCreators.update(title, id)),

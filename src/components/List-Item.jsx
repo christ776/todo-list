@@ -5,7 +5,7 @@ class ListItem extends Component {
   static propTypes = {
     task: PropTypes.shape({
       id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
+      task: PropTypes.string.isRequired,
       completed: PropTypes.bool.isRequired,
     }).isRequired,
     removeTask: PropTypes.func.isRequired,
@@ -47,8 +47,9 @@ class ListItem extends Component {
   }
 
   render() {
-    const { text, id } = this.props.task;
+    const { task, id, completed } = this.props.task;
     const { isEditing } = this.state;
+    const { updateTask } = this.props;
 
     if (isEditing) {
       return (
@@ -56,7 +57,7 @@ class ListItem extends Component {
           <input
             type="text"
             ref={(input) => { this.text = input; }}
-            defaultValue={text}
+            defaultValue={task}
             key={id}
             style={styles.itemEditing}
             onKeyUp={this.handleKeyUp}
@@ -66,15 +67,22 @@ class ListItem extends Component {
     }
 
     return (
-      <div
-        role="menuitem"
-        tabIndex={id}
-        key={id}
-        style={styles.item}
-        onClick={() => this.setState({ isEditing: !this.state.isEditing })}
-      >
-        {text}
+      <div className="">
+        <input
+          className="toggle"
+          type="checkbox"
+          checked={completed}
+          onChange={() => updateTask({ task, completed: !completed, id })}
+        />
+        <label
+          key={id}
+          style={styles.item}
+          onDoubleClick={() => this.setState({ isEditing: !isEditing })}
+        >
+          {task}
+        </label>
       </div>
+
     );
   }
 }

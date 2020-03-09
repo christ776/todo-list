@@ -6,25 +6,23 @@ export const fetchTodos = async () => {
   snap.forEach((childSnap) => {
     result.push({
       id: childSnap.key,
-      text: childSnap.val().item,
+      task: childSnap.val().task,
+      completed: childSnap.val().completed,
     });
   });
   return result;
 };
 
-export function edit(item, id) {
+export const edit = async (item) => {
   const updates = {};
-  updates[`${id}`] = { item };
-  return firebaseDb.ref('/todos/').update(updates);
-}
+  updates[`${item.id}`] = { task: item.task, completed: item.completed };
+  await firebaseDb.ref('/todos/').update(updates);
+};
 
-export function add(item) {
-  return () => {
-    firebaseDb.ref('/todos').push({
-      item,
-    });
-  };
-}
+export const add = async (task) => {
+  const ref = await firebaseDb.ref('/todos').push(task);
+  return ref.key;
+};
 
 export function remove(id) {
   return () => {
