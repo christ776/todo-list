@@ -9,8 +9,7 @@ const List = ({ tasks, removeTask, updateTask }) => {
       task={task}
       removeTask={removeTask}
       updateTask={updateTask}
-    />),
-  );
+    />));
   return (
     <div className="task-list" style={styles.container}>
       {taskItems}

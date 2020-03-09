@@ -1,7 +1,15 @@
-import { ADD,
-  FETCH,
-  REMOVE,
-  UPDATE } from '../actions/action-types';
+import {
+  ADD_TODO_START,
+  ADD_TODO_SUCCESS,
+  ADD_TODO_FAIL,
+  FETCH_START,
+  FETCH_SUCCESS,
+  FETCH_FAIL,
+  REMOVE_START,
+  REMOVE_FAIL,
+  REMOVE_SUCCESS,
+  UPDATE,
+} from '../actions/action-types';
 
 const initialState = {
   todos: [],
@@ -21,13 +29,13 @@ const reducer = (state = initialState, action) => {
   const id = '11';
 
   switch (type) {
-    case ADD: {
+    case ADD_TODO_SUCCESS: {
       return {
         ...state,
         todos: [payload, ...todos],
       };
     }
-    case REMOVE: {
+    case REMOVE_SUCCESS: {
       return {
         ...state,
         todos: todos.filter((todo, i) => i !== payload),
@@ -46,7 +54,7 @@ const reducer = (state = initialState, action) => {
       };
     }
 
-    case FETCH: {
+    case FETCH_SUCCESS: {
       return {
         ...state,
         todos: payload,

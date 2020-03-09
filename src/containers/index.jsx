@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addTodo: text => dispatch(actionCreators.addItem(text)),
-  fetch: items => dispatch(actionCreators.fetch(items)),
+  fetch: () => dispatch(actionCreators.fetch()),
   remove: index => dispatch(actionCreators.remove(index)),
   update: (title, id) => dispatch(actionCreators.update(title, id)),
 });
@@ -34,20 +34,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetchTodos()
-      .then((tasks) => {
-        const { fetch } = this.props;
-        fetch(tasks);
-      }).catch((error) => {
-        throw error;
-      });
+    const { fetch } = this.props;
+    fetch();
   }
 
-  onEditTask = (title, id) => {
-    edit(title, id).then(() =>
-      this.props.update(title, id)).catch((error) => {
-      throw error;
-    });
+  componentDidCatch(error, info) {
+    // Display fallback UI
+    this.setState({ error });
   }
 
   onAddTodo = (text) => {
@@ -58,10 +51,13 @@ class App extends Component {
     this.props.remove(index);
   }
 
-  componentDidCatch(error, info) {
-    // Display fallback UI
-    this.setState({ error });
+  onEditTask = (title, id) => {
+    edit(title, id).then(() =>
+      this.props.update(title, id)).catch((error) => {
+      throw error;
+    });
   }
+
 
   render() {
     if (this.state.error) {
@@ -69,7 +65,7 @@ class App extends Component {
         <div
           className="snap"
         >
-          <p>We're sorry — something's gone wrong.</p>
+          <p>We&apos;re sorry — something&apos;s gone wrong.</p>
           <p>Our team has been notified, but click here fill out a report.</p>
         </div>
       );

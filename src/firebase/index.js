@@ -1,17 +1,16 @@
 import { firebaseDb } from './base';
 
-export function fetchTodos() {
-  return firebaseDb.ref('/todos').once('value').then((snap) => {
-    const result = [];
-    snap.forEach((childSnap) => {
-      result.push({
-        id: childSnap.key,
-        text: childSnap.val().item,
-      });
+export const fetchTodos = async () => {
+  const snap = await firebaseDb.ref('/todos').once('value');
+  const result = [];
+  snap.forEach((childSnap) => {
+    result.push({
+      id: childSnap.key,
+      text: childSnap.val().item,
     });
-    return result;
   });
-}
+  return result;
+};
 
 export function edit(item, id) {
   const updates = {};
